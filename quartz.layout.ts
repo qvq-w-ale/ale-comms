@@ -8,8 +8,8 @@ export const sharedPageComponents: SharedLayout = {
   afterBody: [],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/jackyzha0/quartz",
-      "Discord Community": "https://discord.gg/cRFFHYye7t",
+      "Kofi Page": "https://ko-fi.com/qvq_ale",
+      "Trello Board": "https://trello.com/b/LTiLJoiQ/ales-figura-comms",
     },
   }),
 }
@@ -41,7 +41,6 @@ export const defaultContentPageLayout: PageLayout = {
     // Added purple border to left-side content list
     Component.Explorer({
       style: { borderLeft: "2px solid #a855f7", paddingLeft: "5px" },
-      folderState: "expanded", 
     }),
   ],
   right: [
