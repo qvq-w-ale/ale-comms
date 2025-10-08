@@ -22,23 +22,28 @@ export const defaultContentPageLayout: PageLayout = {
       condition: (page) => page.fileData.slug !== "index",
     }),
     Component.ArticleTitle(),
-    Component.ContentMeta(),
+    // Removed ContentMeta() to hide date and time to read
     Component.TagList(),
   ],
   left: [
-    Component.PageTitle(),
-    Component.MobileOnly(Component.Spacer()),
     Component.Flex({
+      style: { maxWidth: "320px", padding: "0 15px", boxSizing: "border-box" },
       components: [
-        {
-          Component: Component.Search(),
-          grow: true,
-        },
-        { Component: Component.Darkmode() },
-        { Component: Component.ReaderMode() },
+        Component.PageTitle(),
+        Component.MobileOnly(Component.Spacer()),
+        Component.Flex({
+          components: [
+            {
+              Component: Component.Search(),
+              grow: true,
+            },
+            { Component: Component.Darkmode() },
+            { Component: Component.ReaderMode() },
+          ],
+        }),
+        Component.Explorer(),
       ],
     }),
-    Component.Explorer(),
   ],
   right: [
     Component.Graph(),
@@ -49,7 +54,11 @@ export const defaultContentPageLayout: PageLayout = {
 
 // components for pages that display lists of pages  (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
+  beforeBody: [
+    Component.Breadcrumbs(),
+    Component.ArticleTitle(),
+    // Removed ContentMeta() here as well
+  ],
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
