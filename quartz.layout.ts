@@ -42,6 +42,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Explorer({
       style: { borderLeft: "2px solid #a855f7", paddingLeft: "5px" },
       folderState: "expanded", 
+    }),
   ],
   right: [
     Component.Graph(),
