@@ -1,4 +1,3 @@
-import { h } from "preact"
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 
@@ -12,20 +11,6 @@ export const sharedPageComponents: SharedLayout = {
       "Kofi Page": "https://ko-fi.com/qvq_ale",
       "Trello Board": "https://trello.com/b/LTiLJoiQ/ales-figura-comms",
     },
-    // 👇 Added small grey text below footer links
-    slotAfter: (
-      <div
-        style={{
-          fontSize: "0.75rem",
-          color: "gray",
-          marginTop: "0.5rem",
-          textAlign: "center",
-          opacity: 0.7,
-        }}
-      >
-        Created with Quartz v4.5.2 © 2025
-      </div>
-    ),
   }),
 }
 
@@ -41,7 +26,9 @@ export const defaultContentPageLayout: PageLayout = {
     Component.TagList(),
   ],
   left: [
-    Component.PageTitle(),
+    Component.PageTitle({
+      prefix: "💜 ",
+    }),
     Component.MobileOnly(Component.Spacer()),
     Component.Flex({
       components: [
@@ -50,13 +37,11 @@ export const defaultContentPageLayout: PageLayout = {
           grow: true,
         },
         { Component: Component.Darkmode() },
-        { Component: Component.ReaderMode() },
       ],
     }),
-    // Added purple border & expanded folder list
+    // Added purple border to left-side content list
     Component.Explorer({
       style: { borderLeft: "2px solid #a855f7", paddingLeft: "5px" },
-      folderState: "expanded", // 👈 show all folders open by default
     }),
   ],
   right: [
@@ -85,10 +70,15 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    // Added purple border & expanded folder list
+    // Added purple border here too
     Component.Explorer({
-      style: { borderLeft: "2px solid #a855f7", paddingLeft: "10px" },
-      folderState: "expanded", // 👈 show all folders open by default
+      style: {
+        border: "2px solid rgba(168, 85, 247, 0.25)", // low-opacity purple
+        borderRadius: "0.5rem", // rounded corners
+        paddingLeft: "8px",     // optional inner padding
+        paddingRight: "8px",
+      },
+      folderState: "expanded", // ensures folders open by default
     }),
   ],
   right: [],
