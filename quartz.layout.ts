@@ -1,3 +1,4 @@
+import { h } from "preact"
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 
@@ -11,6 +12,20 @@ export const sharedPageComponents: SharedLayout = {
       "Kofi Page": "https://ko-fi.com/qvq_ale",
       "Trello Board": "https://trello.com/b/LTiLJoiQ/ales-figura-comms",
     },
+    // 👇 Added small grey text below footer links
+    slotAfter: (
+      <div
+        style={{
+          fontSize: "0.75rem",
+          color: "gray",
+          marginTop: "0.5rem",
+          textAlign: "center",
+          opacity: 0.7,
+        }}
+      >
+        Created with Quartz v4.5.2 © 2025
+      </div>
+    ),
   }),
 }
 
@@ -38,9 +53,10 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    // Added purple border to left-side content list
+    // Added purple border & expanded folder list
     Component.Explorer({
       style: { borderLeft: "2px solid #a855f7", paddingLeft: "5px" },
+      folderState: "expanded", // 👈 show all folders open by default
     }),
   ],
   right: [
@@ -69,9 +85,10 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    // Added purple border here too
+    // Added purple border & expanded folder list
     Component.Explorer({
       style: { borderLeft: "2px solid #a855f7", paddingLeft: "10px" },
+      folderState: "expanded", // 👈 show all folders open by default
     }),
   ],
   right: [],
