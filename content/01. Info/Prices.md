@@ -1,5 +1,5 @@
 ---
-title: Terms of Service
+title: prices
 draft: false
 tags:
   -

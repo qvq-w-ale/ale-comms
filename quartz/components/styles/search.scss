@@ -3,35 +3,45 @@
 .search {
   min-width: fit-content;
   max-width: 14rem;
+
   @media all and ($mobile) {
     flex-grow: 0.3;
   }
 
+  /* 🔍 Search Button */
   & > .search-button {
+    flex-direction: row-reverse;
     background-color: transparent;
     border: 1px var(--lightgray) solid;
     border-radius: 4px;
     font-family: inherit;
-    font-size: inherit;
+    font-size: 0.85em; /* smaller text */
     height: 2rem;
-    padding: 0 1rem 0 0;
+    padding: 0 0 0 1rem;
     display: flex;
     align-items: center;
+    justify-content: space-between; /* separates text and icon */
     text-align: inherit;
     cursor: pointer;
     white-space: nowrap;
     width: 100%;
+    text-transform: uppercase; /* 🔠 make text uppercase */
+    gap: 0.5rem; /* spacing between text and icon */
 
     & > p {
       display: inline;
       color: var(--gray);
+      text-transform: uppercase;
+      flex-grow: 1;
+      text-align: left;
     }
 
     & svg {
       cursor: pointer;
       width: 18px;
       min-width: 18px;
-      margin: 0 0.5rem;
+      margin-left: auto; /* pushes icon to the right */
+      margin-right: 0.5rem;
 
       .search-path {
         stroke: var(--darkgray);
@@ -41,6 +51,7 @@
     }
   }
 
+  /* 🔎 Search Overlay Container */
   & > .search-container {
     position: fixed;
     contain: layout;
@@ -77,19 +88,26 @@
         margin-bottom: 2em;
       }
 
+      /* 🟣 Search Input Field */
       & > input {
         box-sizing: border-box;
         padding: 0.5em 1em;
         font-family: var(--bodyFont);
         color: var(--dark);
-        font-size: 1.1em;
+        font-size: 0.9em; /* slightly smaller */
         border: 1px solid var(--lightgray);
+        text-transform: uppercase; /* 🔠 make typed text uppercase */
+
+        &::placeholder {
+          text-transform: uppercase; /* placeholder uppercase too */
+        }
 
         &:focus {
           outline: none;
         }
       }
 
+      /* 📄 Search Results Layout */
       & > .search-layout {
         display: none;
         flex-direction: row;
@@ -185,7 +203,6 @@
             display: block;
             box-sizing: border-box;
 
-            // normalize card props
             font-family: inherit;
             font-size: 100%;
             line-height: 1.15;

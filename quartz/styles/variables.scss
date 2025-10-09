@@ -56,3 +56,16 @@ $desktopGrid: (
       "grid-sidebar-left grid-center grid-sidebar-right"\
       "grid-sidebar-left grid-footer grid-sidebar-right"',
 );
+
+/* ============================= */
+/* 🎨 Font Settings              */
+/* ============================= */
+
+$bodyFont: "Inter", sans-serif !default;
+$headerFont: "Poppins", sans-serif !default;
+
+// Optional: export as CSS custom properties (if you use var(--headerFont) in components)
+:root {
+  --bodyFont: #{$bodyFont};
+  --headerFont: #{$headerFont};
+}

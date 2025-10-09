@@ -8,8 +8,8 @@ export const sharedPageComponents: SharedLayout = {
   afterBody: [],
   footer: Component.Footer({
     links: {
-      "Kofi Page": "https://ko-fi.com/qvq_ale",
-      "Trello Board": "https://trello.com/b/LTiLJoiQ/ales-figura-comms",
+      //"Kofi Page": "https://ko-fi.com/qvq_ale",
+      //"Trello Board": "https://trello.com/b/LTiLJoiQ/ales-figura-comms",
     },
   }),
 }
@@ -17,33 +17,60 @@ export const sharedPageComponents: SharedLayout = {
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
+    Component.ArticleTitle(),
     Component.ConditionalRender({
       component: Component.Breadcrumbs(),
       condition: (page) => page.fileData.slug !== "index",
     }),
-    Component.ArticleTitle(),
-    // Removed: Component.ContentMeta()  ← no date/time at top
     Component.TagList(),
   ],
+
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Flex({
       components: [
+        { Component: Component.Darkmode() },
         {
           Component: Component.Search(),
           grow: true,
         },
-        { Component: Component.Darkmode() },
       ],
     }),
     // Added purple border to left-side content list
     Component.Explorer({
-      style: { borderLeft: "2px solid #a855f7", paddingLeft: "5px" },
+      sortFn: (a, b) => {
+        const emojis =
+          /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g
+        const a_name = a.data?.title.replace(emojis, "").trim()
+        const a_dname = a.displayName.replace(emojis, "").trim()
+        const b_name = b.data?.title.replace(emojis, "").trim()
+        const b_dname = b.displayName.replace(emojis, "").trim()
+        // Sort order: folders first, then files. Sort folders and files alphabetically
+        if (/^.*Home$/.test(a_dname)) {
+          return -1
+        }
+        if (/^.*Home$/.test(b_dname)) {
+          return 1
+        }
+        if ((!a.isFolder && !b.isFolder) || (a.isFolder && b.isFolder)) {
+          // numeric: true: Whether numeric collation should be used, such that "1" < "2" < "10"
+          // sensitivity: "base": Only strings that differ in base letters compare as unequal. Examples: a ≠ b, a = á, a = A
+          return a_dname.localeCompare(b_dname, undefined, {
+            numeric: true,
+            sensitivity: "base",
+          })
+        }
+
+        if (!a.isFolder && b.isFolder) {
+          return 1
+        } else {
+          return -1
+        }
+      },
     }),
   ],
   right: [
-    Component.Graph(),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
   ],
@@ -61,11 +88,11 @@ export const defaultListPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Flex({
       components: [
+        { Component: Component.Darkmode() },
         {
           Component: Component.Search(),
           grow: true,
         },
-        { Component: Component.Darkmode() },
       ],
     }),
     // Added purple border here too

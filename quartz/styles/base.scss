@@ -13,11 +13,46 @@ html {
 
 body {
   margin: 0;
-  box-sizing: border-box;
-  background-color: var(--light);
-  font-family: var(--bodyFont);
-  color: var(--darkgray);
+  height: 100vh;
+  overflow: hidden;
+  background-color: #1e1e1e;
+  position: relative;
 }
+
+/* --- Animated dotted pattern (Dark/Light Mode Compatible) --- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  /* Default (dark mode) */
+  background-color: #1e1e1e;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 13%, transparent 18%);
+  background-size: 40px 40px;
+  animation: moveDots 120s linear infinite;
+  transition: background-color 0.4s ease, background-image 0.4s ease;
+}
+
+/* ☀️ Light Mode — greyed lavender tone */
+html[saved-theme="light"] body::before {
+  background-color: #d8d6e3; /* darker, cooler lavender-grey */
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.25) 13%, transparent 18%);
+}
+
+/* 🌙 Dark Mode — deep gray with subtle white dots */
+html[saved-theme="dark"] body::before {
+  background-color: #1e1e1e;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 13%, transparent 18%);
+}
+
+/* gentle diagonal drift */
+@keyframes moveDots {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+
 
 .text-highlight {
   background-color: var(--textHighlight);
@@ -556,14 +591,29 @@ p > img + em {
   display: block;
   transform: translateY(-1rem);
 }
-
+ 
 hr {
-  width: 100%;
-  margin: 2rem auto;
-  height: 1px;
   border: none;
+  height: 1px;
   background-color: var(--lightgray);
+  margin: 2rem 0;
+  width: 100vw; /* full viewport width */
+  margin-left: 0;
+  margin-right: calc(50% - 50vw); /* keep centered */
+  box-sizing: border-box;
+
+  /* for ultra-wide screens, still full-bleed */
+  @media all and (min-width: 1200px) {
+    width: 100vw;
+  }
+
+  /* make sure it only appears inside main content flow */
+  .center > article & {
+    max-width: 100vw;
+  }
 }
+
+
 
 audio,
 video {
@@ -631,3 +681,17 @@ iframe.pdf {
   transition: width 0.2s ease;
   z-index: 9999;
 }
+
+/* ======================================================
+   FORCE-REMOVE default vignette/gradient overlay
+   ====================================================== */
+
+/* clear any vignette applied directly to explorer/overflow elements */
+.explorer-content,
+.explorer,
+.sidebar,
+ul.overflow,
+.explorer-wrapper {
+  mask-image: none !important;
+}
+
