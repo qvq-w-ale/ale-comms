@@ -52,11 +52,11 @@ let numExplorers = 0
 function getIconPathForNote(title: string): string {
   switch (title) {
     case "Animations":
-      return "/static/animations.gif"
+      return "/animations.gif"
     case "Models":
-      return "/static/models.gif"
+      return "/models.gif"
     case "Completed Comms":
-      return "/static/comms.gif"
+      return "/comms.gif"
     default:
       return ""
   }

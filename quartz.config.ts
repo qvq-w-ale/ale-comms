@@ -16,9 +16,16 @@ const config: QuartzConfig = {
       provider: "plausible",
     },
     locale: "en-US",
-    baseUrl: "quartz.jzhao.xyz",
+
+    // 🧩 IMPORTANT: use your actual GitHub Pages URL
+    baseUrl: "https://qvq-w-ale.github.io/ale-comms",
+
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
+
+    // ✅ ensures your /static folder is copied into /public/static
+    assets: ["static"],
+
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,
@@ -35,8 +42,8 @@ const config: QuartzConfig = {
           gray: "#b8b8b8",
           darkgray: "#4e4e4e",
           dark: "#2b2b2b",
-          secondary: "#a855f7",     // purple
-          tertiary: "#c084fc",      // lighter purple
+          secondary: "#a855f7", // purple
+          tertiary: "#c084fc",  // lighter purple
           highlight: "rgba(168, 85, 247, 0.15)",
           textHighlight: "#a855f788",
         },
@@ -54,13 +61,10 @@ const config: QuartzConfig = {
       },
     },
   },
+
   plugins: {
     transformers: [
       Plugin.FrontMatter(),
-      // Removed CreatedModifiedDate to stop showing timestamps
-      // Plugin.CreatedModifiedDate({
-      //   priority: ["frontmatter", "git", "filesystem"],
-      // }),
       Plugin.SyntaxHighlighting({
         theme: {
           light: "github-light",
@@ -87,7 +91,7 @@ const config: QuartzConfig = {
         enableRSS: true,
       }),
       Plugin.Assets(),
-      Plugin.Static(),
+      Plugin.Static(), // ✅ Copies /static → /public/static
       Plugin.Favicon(),
       Plugin.NotFoundPage(),
       Plugin.CustomOgImages(),
